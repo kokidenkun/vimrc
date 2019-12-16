@@ -1,0 +1,8 @@
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+hook_and = '''
+let g:solarized_termcolors=256
+syntax enable
+set background=green
+colorscheme solarized
+'''

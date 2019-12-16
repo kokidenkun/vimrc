@@ -2,31 +2,46 @@ if &compatible
 	set compatible
 endif
 "Add the dein installation directory into runtime"
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+let s:dein_dir = expand('~/.cache/dein/repos/github.com')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-if dein#load_state('~/.cache/dein')
-	call dein#begin('~/.cache/dein')
-
-	call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-	call dein#add('Shougo/deoplete.nvim')
-	if !has('nvim')
-		call dein#add('roxma/nvim-yarp')
-		call dein#add('roxma/vim-hug-neovim-rpc')
-		"Add the plugin here like below"
-		"if plugin exists in github"
-		"call dein#add('author/something.vim)"
-		"to applicate plugin, run ':call dein#install()'"
-		call dein#add('fatih/vim-go')
-		call dein#add('justmao945/vim-clang')
-		call dein#add('tpope/vim-fugitive')
+" dein install check"
+if &runtimepath !~# '/dein.vim'
+	if !isdirectory(s:dein_repo_dir)
+		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
 	endif
+	execute 'set runtimepath^=' . s:dein_repo_dir
+endif
 
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
+
+	" .toml file"
+	let s:rc_dir = expand('~/.vim')
+	if !isdirectory(s:rc_dir)
+		call mkdir(s:rc_dir, 'p')
+	endif
+	let s:toml = s:rc_dir . '/dein.toml'
+	let s:lazy_toml = s:rc_dir . '/dein_lazy.toml'
+
+	"read toml and cache"
+	call dein#load_toml(s:toml, {'lazy': 0})
+	call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+	"end setting"
 	call dein#end()
 	call dein#save_state()
 endif
 
-filetype plugin indent on
-syntax enable
+if dein#check_install()
+	call dein#install()
+endif
+
+let s:removed_plugins = dein#check_clean()
+if len(s:removed_plugins) > 0
+	call map(s:removed_plugins, "delete(v:val, 'rf')")
+	call dein#recache_runtimepath()
+endif
 
 set virtualedit=onemore
 set cursorline
@@ -42,6 +57,12 @@ if has('persistent_undo')
 	exe 'set undodir=' . undo_path
 	set undofile
 endif
+
+"Option for complement"
+inoremap { {}<LEFT>
+inoremap ( ()<LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
 
 "Key mapping"
 nnoremap <C-e> :e ~/.vimrc<CR>
