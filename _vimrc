@@ -51,6 +51,8 @@ set smartindent
 set wildmenu
 syntax on
 set laststatus=2
+syntax enable
+colorscheme shine
 
 if has('persistent_undo')
 	let undo_path = expand('~/.vim/undo')
