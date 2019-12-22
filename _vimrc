@@ -48,11 +48,13 @@ set cursorline
 set number
 set showmatch
 set smartindent
+set shiftwidth=4
 set wildmenu
+set history=100
 syntax on
 set laststatus=2
 syntax enable
-colorscheme shine
+colorscheme darkblue
 
 if has('persistent_undo')
 	let undo_path = expand('~/.vim/undo')
@@ -60,14 +62,29 @@ if has('persistent_undo')
 	set undofile
 endif
 
-"Option for complement"
-inoremap { {}<LEFT>
-inoremap ( ()<LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
-
-"Key mapping"
+"keymap "
+"normal mord"
 nnoremap <C-e> :e ~/.vimrc<CR>
+
+"insert mord"
+
+"Complement in insert mord"
+" Brackets "
+
+inoremap ( ()<ESC>i
+inoremap <expr> ) ClosePair(')')
+inoremap { {}<ESC>i
+inoremap <expr> } ClosePair('}')
+inoremap [ []<ESC>i
+inoremap <expr> ] ClosePair(']')
+
+function ClosePair(char)
+	if getline('.')[col('.') - 1] == a:char
+	    return "\<Right>"
+	else
+	    return a:char
+	endif
+endf
 
 "Options for vim-clang"
 let g:clang_c_options='-std=c11'
