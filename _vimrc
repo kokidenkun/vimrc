@@ -51,7 +51,6 @@ set smartindent
 set shiftwidth=4
 set wildmenu
 set history=100
-syntax on
 set laststatus=2
 syntax enable
 colorscheme darkblue
@@ -70,7 +69,6 @@ nnoremap <C-e> :e ~/.vimrc<CR>
 
 "Complement in insert mord"
 " Brackets "
-
 inoremap ( ()<ESC>i
 inoremap <expr> ) ClosePair(')')
 inoremap { {}<ESC>i
@@ -93,3 +91,6 @@ let g:clang_format_auto=1
 let g:clang_format_style='Google'
 let g:clang_check_syntax_auto=1
 
+"molokai color scheme"
+syntax on
+colorscheme molokai

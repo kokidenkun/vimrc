@@ -16,3 +16,5 @@ repo = 'justmao945/vim-clang'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+[[plugins]]
+repo = 'tomasr/molokai'
