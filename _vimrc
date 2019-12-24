@@ -64,6 +64,7 @@ endif
 "keymap "
 "normal mord"
 nnoremap <C-e> :e ~/.vimrc<CR>
+nnoremap <C-t> :vert term<CR>
 
 "insert mord"
 
