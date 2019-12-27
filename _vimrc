@@ -55,6 +55,8 @@ set laststatus=2
 syntax enable
 colorscheme darkblue
 
+"Persistent undo"
+" If you don't have file'undo', make it in ~/.vim . If not, below script is invalid ."
 if has('persistent_undo')
 	let undo_path = expand('~/.vim/undo')
 	exe 'set undodir=' . undo_path
@@ -77,6 +79,10 @@ inoremap <expr> } ClosePair('}')
 inoremap [ []<ESC>i
 inoremap <expr> ] ClosePair(']')
 
+" code for brace "
+" If you want to use this complement, type enter immediately after { . "
+inoremap {<CR> {<CR>}<ESC>O
+
 function ClosePair(char)
 	if getline('.')[col('.') - 1] == a:char
 	    return "\<Right>"
@@ -84,6 +90,9 @@ function ClosePair(char)
 	    return a:char
 	endif
 endf
+
+"Quotaion"
+
 
 "Options for vim-clang"
 let g:clang_c_options='-std=c11'
@@ -95,3 +104,4 @@ let g:clang_check_syntax_auto=1
 "molokai color scheme"
 syntax on
 colorscheme molokai
+
