@@ -43,6 +43,11 @@ if len(s:removed_plugins) > 0
 	call dein#recache_runtimepath()
 endif
 
+"Basic settings"
+
+"stop beep sound"
+set vb t_vb=
+
 set virtualedit=onemore
 set cursorline
 set number
@@ -65,7 +70,7 @@ endif
 
 "keymap "
 "normal mord"
-nnoremap <C-e> :e ~/.vimrc<CR>
+nnoremap <C-e> :tabnew ~/.vimrc<CR>
 nnoremap <C-t> :vert term<CR>
 
 "insert mord"
@@ -100,6 +105,9 @@ let g:clang_cpp_options='-std=c++1z -stdlib=libc++'
 let g:clang_format_auto=1
 let g:clang_format_style='Google'
 let g:clang_check_syntax_auto=1
+
+"Options for rust.vim"
+"let g:rustfmt_autosave = 1
 
 "molokai color scheme"
 syntax on
